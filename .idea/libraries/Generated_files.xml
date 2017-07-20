@@ -1,0 +1,35 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/dist/webpack.config.js" />
+        <item url="file://$PROJECT_DIR$/dist/bin/www.js" />
+        <item url="file://$PROJECT_DIR$/dist/routes/users.js" />
+        <item url="file://$PROJECT_DIR$/dist/routes/post.js" />
+        <item url="file://$PROJECT_DIR$/dist/routes/index.js" />
+        <item url="file://$PROJECT_DIR$/dist/models/nosql/user.js" />
+        <item url="file://$PROJECT_DIR$/dist/run/hanshushi.js" />
+        <item url="file://$PROJECT_DIR$/dist/models/nosql/mongo.js" />
+        <item url="file://$PROJECT_DIR$/dist/settings.js" />
+        <item url="file://$PROJECT_DIR$/dist/routes/reg.js" />
+        <item url="file://$PROJECT_DIR$/dist/app.js" />
+        <item url="file://$PROJECT_DIR$/dist/routes/log.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/dist/routes/users.js" />
+      <root url="file://$PROJECT_DIR$/dist/run/hanshushi.js" />
+      <root url="file://$PROJECT_DIR$/dist/models/nosql/mongo.js" />
+      <root url="file://$PROJECT_DIR$/dist/routes/reg.js" />
+      <root url="file://$PROJECT_DIR$/dist/app.js" />
+      <root url="file://$PROJECT_DIR$/dist/routes/log.js" />
+      <root url="file://$PROJECT_DIR$/dist/webpack.config.js" />
+      <root url="file://$PROJECT_DIR$/dist/bin/www.js" />
+      <root url="file://$PROJECT_DIR$/dist/routes/post.js" />
+      <root url="file://$PROJECT_DIR$/dist/routes/index.js" />
+      <root url="file://$PROJECT_DIR$/dist/models/nosql/user.js" />
+      <root url="file://$PROJECT_DIR$/dist/settings.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>
