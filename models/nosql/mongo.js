@@ -8,7 +8,6 @@ const Sever = require("mongodb").Server;
 
 module.exports = new Db(settings.db, new Sever(settings.host, settings.port), {"safe": true});
 //
-//
 // let server = new Sever("localhost", 27017);
 // let conn =  new Db("blog", server, {"safe": true});
 // conn.open(function(err, db){

@@ -8,7 +8,6 @@ router.get('/', function(req, res) {
   res.render('index', { title: '主页' });
 });
 router.get("/reg", function(req, res){
-    console.log(1);
   res.render('reg', { title: "注册"})
 });
 router.post("/reg", function(req, res){
@@ -17,7 +16,7 @@ router.post("/reg", function(req, res){
         password = req.body["password"],
         password_re = req.body['password-repeat'];
     if(password != password_re){
-        req.flash("error", "两次输入的密码不一致");
+        req.flash("error", "两次输入的密码不一致!");
         return res.redirect("/reg");
     }
     let md5 = crypto.createHash('md5'),
@@ -36,7 +35,6 @@ router.post("/reg", function(req, res){
             req.flash("error", "用户已存在!");
             return res.redirect("/reg");
         }
-        console.log("789");
         new_user.save(function(err){
             if (err) {
                 req.flash("error", err);
