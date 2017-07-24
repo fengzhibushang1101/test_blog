@@ -2,6 +2,7 @@
  * Created by yueqingji on 2017/7/24.
  */
 const mongodb = require("./mongo");
+const markdown = require("markdown").markdown;
 
 function Post(post) {
     this.name = post.name;
@@ -37,10 +38,10 @@ Post.prototype.save = function (callback) {
                 mongdb.close();
                 return callback(err)
             }
-            collection.insert(post, {"safe": true}, function(err, user){
+            collection.insert(post, {"safe": true}, function(err, docs){
                 mongodb.close();
                 if(err) return callback(err);
-                callback(err, user)
+                callback(err, docs)
             })
         })
     })
@@ -58,10 +59,11 @@ Post.get = function (name, callback) {
             if(err){
                 return callback(err)
             }
-            collection.find({"name": name}).sort({"time": -1}).toArray(function(err, user){
+            collection.find({"name": name}).sort({"time": -1}).toArray(function(err, posts){
                 mongodb.close();
                 if(err) return callback(err);
-                callback(err, user)
+                posts.forEach((post)=>{ post.post = markdown.toHTML(post.post); });
+                callback(err, posts)
             })
         })
     })

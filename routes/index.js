@@ -5,7 +5,7 @@ const User = require("../models/nosql/user");
 const Post = require("../models/nosql/post");
 
 /* GET home page. */
-
+router.get("/", checkLogin);
 router.get('/', function(req, res) {
     Post.get(req.session.user.name, function (err, posts) {
         if (err) {
