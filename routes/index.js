@@ -2,16 +2,24 @@ const express = require('express');
 const crypto = require('crypto');
 const router = express.Router();
 const User = require("../models/nosql/user");
+const Post = require("../models/nosql/post");
 
 /* GET home page. */
 
 router.get('/', function(req, res) {
-  res.render('index', {
-      title: '主页',
-      user: req.session.user,
-      success: req.flash("success").toString(),
-      error: req.flash("error").toString()
-  });
+    Post.get(req.session.user.name, function (err, posts) {
+        if (err) {
+            req.flash("error", err);
+            posts = [];
+        }
+        res.render('index', {
+            title: '主页',
+            user: req.session.user,
+            posts: posts,
+            success: req.flash('success').toString(),
+            error: req.flash('error').toString()
+        });
+    });
 });
 router.get("/reg", checkNotLogin);
 router.get("/reg", function(req, res){
@@ -92,10 +100,31 @@ router.post("/login", function(req, res, next){
 });
 router.get("/post", checkLogin);
 router.get("/post", function(req, res, next){
-    res.render("post", {"title": "发表"})
+    res.render("post", {
+        "title": "发表",
+        user: req.session.user,
+        success: req.flash("success").toString(),
+        error: req.flash("error").toString()
+    })
 });
 router.post("/post", checkLogin);
-router.post("/post", function(req,res, next){});
+router.post("/post", function(req,res, next){
+    var currentUser = req.session.user,
+        post = new Post({
+            "name": currentUser.name,
+            "title": req.body.title,
+            "post": req.body.post
+        });
+    post.save(function (err) {
+        if (err) {
+            req.flash('error', err);
+            return res.redirect('/');
+        }
+        req.flash('success', '发布成功!');
+        res.redirect('/');
+    });
+
+});
 router.get("/logout", checkLogin);
 router.get("/logout", function(req, res){
     req.session.user = null;
