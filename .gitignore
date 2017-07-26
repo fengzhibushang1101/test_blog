@@ -1,6 +1,7 @@
 .idea/
 node_modules/
 dist/
+public/images
 *-compiled.js
 *-compiled.js.map
 .*

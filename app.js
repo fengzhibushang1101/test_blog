@@ -11,6 +11,7 @@ const index = require('./routes/index');
 const users = require('./routes/users');
 const settings = require('./settings');
 const flash = require("connect-flash");
+const multer = require('multer');
 
 const app = express();
 

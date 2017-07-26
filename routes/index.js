@@ -3,6 +3,14 @@ const crypto = require('crypto');
 const router = express.Router();
 const User = require("../models/nosql/user");
 const Post = require("../models/nosql/post");
+const multer = require("multer");
+
+let storage = multer.diskStorage({
+    destination: '../public/images/',
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+});
 
 /* GET home page. */
 router.get("/", checkLogin);
@@ -70,7 +78,7 @@ router.post("/reg", function(req, res){
 });
 
 router.get("/login", checkNotLogin);
-router.get("/login", function(req, res, next){
+router.get("/login", function(req, res){
     res.render('login', {
         title: '登录',
         user: req.session.user,
@@ -79,7 +87,7 @@ router.get("/login", function(req, res, next){
     });
 });
 router.post("/login", checkNotLogin);
-router.post("/login", function(req, res, next){
+router.post("/login", function(req, res){
     let md5 = crypto.createHash("md5"),
         password = md5.update(req.body.password).digest("hex");
     User.get(req.body.name, function(err, user){
@@ -99,7 +107,7 @@ router.post("/login", function(req, res, next){
 
 });
 router.get("/post", checkLogin);
-router.get("/post", function(req, res, next){
+router.get("/post", function(req, res){
     res.render("post", {
         "title": "发表",
         user: req.session.user,
@@ -131,7 +139,31 @@ router.get("/logout", function(req, res){
     req.flash("success", "登出成功");
     res.redirect("/");
 });
+router.get("/upload", checkLogin);
+router.get('/upload', (req, res)=>{
+    res.render('upload', {
+        title: '文件上传',
+        user: req.session.user,
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString()
+    });
+});
+router.post("/upload", checkLogin);
 
+
+router.post('/upload', multer({ storage: storage }).fields([
+    {name: 'file1'},
+    {name: 'file2'},
+    {name: 'file3'},
+    {name: 'file4'},
+    {name: 'file5'}
+]),function(req, res){
+    for(var i in req.files){
+        console.log(req.files[i]);
+    }
+    req.flash('success', '文件上传成功!');
+    res.redirect('/upload');
+});
 
 function checkLogin(req, res, next) {
     if (!req.session.user) {
