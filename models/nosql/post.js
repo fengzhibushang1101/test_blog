@@ -46,8 +46,33 @@ Post.prototype.save = function (callback) {
         })
     })
 };
+Post.get = function (name, day, title, callback){
+    mongodb.open(function(err, db){
+        if(err) {
+            mongodb.close();
+            return callback(err);
+        }
+        db.collection("posts", function(err, collection){
+            if(err){
+                mongodb.close();
+                return callback(err)
+            }
+            collection.findOne({"name": name,
+                "time.day": day,
+                "title": title
+            }, function(err, doc){
+                mongodb.close();
+                if (err) {
+                    return callback(err);
+                }
+                doc.post = markdown.toHTML(doc.post);
+                callback(null, doc);
+            })
+        })
+    })
+};
 
-Post.get = function (name, callback) {
+Post.get_all = function (name, callback) {
     console.log("正在打开mongo连接......");
     mongodb.open(function(err, db){
         if(err) {
